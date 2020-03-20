@@ -60,7 +60,6 @@ end
 # song = Song.new("Don't Turn Me Away",band, genre)
 # song = Song.new("Kokomo",band, genre2)
 # band.genres
-
 # Song.new("Sexy Sadie",)
 # Artist
 # song = Song.new("Sexy Sadie")
