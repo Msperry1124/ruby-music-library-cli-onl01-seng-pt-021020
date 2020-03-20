@@ -1,14 +1,13 @@
 class Artist
-  extend Concerns::Findable
-  attr_accessor :name
-  attr_reader :songs
 
+  extend Concerns::Findable
+
+  attr_accessor :name
   @@all = []
 
   def initialize(name)
     @name = name
     @songs = []
-    # self.save
   end
 
   def self.all
@@ -24,44 +23,29 @@ class Artist
   end
 
   def self.create(name)
-    artist = self.new(name)
-    artist.save
-    artist
+    self.new(name).tap do |artist|
+      artist.save
+    end
   end
 
   def songs
     @songs
   end
 
+ #this sets up the song belongs to the artist association
   def add_song(song)
-
-      song.artist = self unless song.artist
-      songs << song unless songs.include?(song)
-      # @songs.uniq!
-
+    song.artist = self unless song.artist == self
+    @songs << song unless @songs.include?(song)
   end
 
+  #artist has many genres through songs
   def genres
-    # self.songs.collect {|song| song.genre}
-    songs.collect { |song| song.genre}.uniq
+    genres = @songs.collect do |song|
+      song.genre
+    end
+    genres.uniq
   end
+
+
+
 end
-
-
-
-
-# genre = Genre.new("post-punk")
-# genre2 = Genre.new("noise")
-# band = Artist.new("Rexy")
-# band2 = Artist.new("Black Dice")
-# song = Song.new("Don't Turn Me Away",band, genre)
-# song = Song.new("Kokomo",band, genre2)
-# band.genres
-
-# Song.new("Sexy Sadie",)
-# Artist
-# song = Song.new("Sexy Sadie")
-# song = Song.create("Sexy Sadie")
-# pop = Genre.new("Pop")
-# ruby ../lib/song.rb
-# song.genre = pop
