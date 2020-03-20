@@ -49,5 +49,3 @@ class Artist
     songs.collect { |song| song.genre}.uniq
   end
 end
-
-
